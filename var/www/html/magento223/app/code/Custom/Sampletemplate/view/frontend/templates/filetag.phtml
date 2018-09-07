@@ -1,0 +1,13 @@
+<?php
+ 
+//Get Object Manager Instance
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+//Load Filetag by filetag id
+$filetag = $objectManager->create('Custom\Sampletemplate\Api\FiletagInterface');
+
+$filetagCollection = $filetag->getFiletagData(1);
+foreach($filetagCollection as $collection){
+	echo $collection['filetag_name'];
+}
+?>

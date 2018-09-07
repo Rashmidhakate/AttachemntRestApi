@@ -1,0 +1,67 @@
+<h1>Custom Tab Content</h1>
+<?php
+$categories = $block->getStoreCategories(true, false, true);
+$selectcategories=$block->getSelectedCategories();
+$catid=array();
+if(isset($selectcategories) && !empty($selectcategories))
+{
+foreach ($selectcategories as $selcat) {
+		$multipleCategory = explode(',',$selcat['category']);
+		if(count($multipleCategory) == 1){
+			$catid[]=$selcat['category'];	
+		}else{
+			$catid=explode(',',$selcat['category']);
+		}
+    }
+} 
+function category_tree($cat,$catid){
+    if(isset($cat['children_data']) && !empty($cat['children_data'])){
+        ?>
+        <ul>
+        <?php
+        foreach ($cat['children_data'] as $value) {    
+           ?><li>
+                <input type="checkbox" name="entity_id[]" value="<?php echo $value['entity_id'];?>" <?php if(isset($catid) && !empty($catid)) { echo isset($value['entity_id']) && in_array($value['entity_id'],$catid) ?"checked":"";} ?>>
+                <label>
+                    <?php echo $value['name']; ?>
+                </label>
+            <?php
+            if(!empty($value['children_data'])){        
+               category_tree($value,$catid);
+            }    
+        } 
+        ?>
+        </li>
+        </ul>
+        <?php   
+    }     
+}   
+
+?>
+<div id="buildTree" class="demo">
+<ul>
+    <li data-jstree='{"opened":true}'>
+        <input type="checkbox" name="entity_id[]" value="<?php echo $categories['entity_id'];?>" <?php if(isset($catid) && !empty($catid)){echo isset($categories['entity_id']) && in_array($categories['entity_id'],$catid)?"checked":"";}?>><label>
+                <?php echo $categories['name']; ?> 
+            </label>
+        <ul style="margin: 0 0 0 10px;">
+        <?php
+        foreach ($categories['children_data'] as $childrenCategory){
+            $childrenCategory[]=$childrenCategory['children_data'];
+            ?>
+            <li>
+                <input type="checkbox" name="entity_id[]" value="<?php echo $childrenCategory['entity_id'];?>" <?php if(isset($catid) && !empty($catid)) {echo isset($childrenCategory['entity_id']) && in_array($childrenCategory['entity_id'],$catid)?"checked":"";}?>>
+                <label><?php echo $childrenCategory['name']; ?></label>
+                <?php
+                    category_tree($childrenCategory,$catid); 
+                } ?>
+                </li> 
+            </ul>
+    </li>            
+</ul>
+<script type="text/javascript">
+    require(['jquery','jquery/jstree/jquery.jstree'],
+        function(jquery){
+            jQuery("#buildTree").jstree();
+        });
+</script>

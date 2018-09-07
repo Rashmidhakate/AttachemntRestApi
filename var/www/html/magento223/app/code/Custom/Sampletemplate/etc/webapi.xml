@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- Create -->
+    <route url="/V1/filetag" method="POST">
+        <service class="Custom\Sampletemplate\Api\FiletagInterface" method="create"/>
+        <resources>
+             <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!-- Get -->
+    <route url="/V1/filetag/:id" method="GET">
+        <service class="Custom\Sampletemplate\Api\FiletagInterface" method="getFiletagData"/>
+        <resources>
+             <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!-- Update -->
+    <route url="/V1/filetag/" method="PUT">
+        <service class="Custom\Sampletemplate\Api\FiletagInterface" method="update"/>
+        <resources>
+             <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!-- Delete -->
+    <route url="/V1/filetag/:id" method="DELETE">
+        <service class="Custom\Sampletemplate\Api\FiletagInterface" method="delete"/>
+        <resources>
+             <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

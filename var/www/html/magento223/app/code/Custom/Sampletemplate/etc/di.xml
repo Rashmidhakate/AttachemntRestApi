@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <preference for="Custom\Sampletemplate\Api\FiletagInterface" type="Custom\Sampletemplate\Model\FiletagManagement"/>
+    <preference for="Custom\Sampletemplate\Api\Data\FiletagDataInterface" type="Custom\Sampletemplate\Model\Data\FiletagData"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="sampletemplate_filetag_index_listing_data_source" xsi:type="string">Custom\Sampletemplate\Model\ResourceModel\Filetag\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Custom\Sampletemplate\Model\ResourceModel\Filetag\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cp_filetag_manage</argument>
+            <argument name="resourceModel" xsi:type="string">Custom\Sampletemplate\Model\ResourceModel\Filetag</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="sampletemplate_template_index_listing_data_source" xsi:type="string">Custom\Sampletemplate\Model\ResourceModel\Template\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Custom\Sampletemplate\Model\ResourceModel\Template\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cp_sampletemplate_manage</argument>
+            <argument name="eventPrefix" xsi:type="string">sampletemplate_template_collection</argument>
+            <argument name="eventObject" xsi:type="string">sampletemplate_template_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Custom\Sampletemplate\Model\ResourceModel\Template</argument>
+        </arguments>
+    </type>
+    <virtualType name="SampletemplateFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SampleTemplateDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Custom\Sampletemplate\Model\ResourceModel\Template\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">SampletemplateFilterPool</argument>
+        </arguments>
+    </virtualType>
+</config>

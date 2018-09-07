@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Custom_Sampletemplate::sampletemplate" 
+            title="Sample Template" 
+            module="Custom_Sampletemplate" 
+            sortOrder="30" 
+            resource="Custom_Sampletemplate::manage" 
+            parent="Magento_Catalog::catalog"/>
+        <add id="Custom_Sampletemplate::filetag_manage" 
+            title="Manage FileTag" 
+            module="Custom_Sampletemplate" 
+            sortOrder="10" 
+            parent="Custom_Sampletemplate::sampletemplate" 
+            action="sampletemplate/filetag/index" 
+            resource="Custom_Sampletemplate::manage"/>
+        <add id="Custom_Sampletemplate::sampletemplate_manage" 
+            title="Manage Templates" 
+            module="Custom_Sampletemplate" 
+            sortOrder="10" 
+            parent="Custom_Sampletemplate::sampletemplate" 
+            action="sampletemplate/template/index" 
+            resource="Custom_Sampletemplate::manage"/>
+    </menu>
+</config>
